@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎙️ VoiceMate - AI Voice & Text Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🎙️</span>
+                <h1 class="logo-text">VoiceMate</h1>
+            </div>
+            <p class="tagline">Your AI-Powered Voice & Text Assistant</p>
+        </header>
+
+        <!-- Feature Cards -->
+        <div class="cards-container">
+
+            <!-- Text-to-Speech Card -->
+            <div class="card" id="tts-card">
+                <div class="card-header">
+                    <span class="card-icon">📢</span>
+                    <h2 class="card-title">Text to Speech</h2>
+                </div>
+                <div class="card-body">
+                    <textarea id="tts-input" class="text-input" placeholder="Type or paste your text here... ✨"
+                        rows="6">Hello! Welcome to VoiceMate. Transform your text into natural-sounding speech instantly!</textarea>
+
+                    <div class="button-group">
+                        <button class="btn btn-play" onclick="speakNow()">
+                            <span class="btn-icon">🔊</span>
+                            Speak Now
+                        </button>
+                        <button class="btn btn-primary" onclick="generateSpeech('gtts')">
+                            <span class="btn-icon">💾</span>
+                            Save MP3 (gTTS)
+                        </button>
+                        <button class="btn btn-secondary" onclick="generateSpeech('pyttsx3')">
+                            <span class="btn-icon">💾</span>
+                            Save MP3 (Offline)
+                        </button>
+                    </div>
+
+                    <div id="tts-output" class="output-area"></div>
+                </div>
+            </div>
+
+            <!-- Speech-to-Text Card -->
+            <div class="card" id="stt-card">
+                <div class="card-header">
+                    <span class="card-icon">🎤</span>
+                    <h2 class="card-title">Speech to Text</h2>
+                </div>
+                <div class="card-body">
+                    <!-- Microphone Recording Section -->
+                    <div class="recording-section">
+                        <div class="recording-controls">
+                            <button class="btn btn-record" id="record-btn" onclick="toggleSpeechRecognition()">
+                                <span class="btn-icon" id="record-icon">🎙️</span>
+                                <span id="record-text">Start Listening</span>
+                            </button>
+                            <div class="recording-indicator hidden" id="recording-indicator">
+                                <div class="pulse-dot"></div>
+                                <span class="recording-time">Listening...</span>
+                            </div>
+                        </div>
+                        <p class="recording-hint">Click to start speech recognition (No FFmpeg needed!)</p>
+                    </div>
+
+                    <div class="divider">
+                        <span class="divider-text">OR</span>
+                    </div>
+
+                    <!-- File Upload Section -->
+                    <div class="upload-area" id="audio-upload-area">
+                        <div class="upload-icon">🎵</div>
+                        <p class="upload-text">Upload Audio File (.wav)</p>
+                        <p class="upload-subtext">WAV files work without FFmpeg!</p>
+                        <input type="file" id="audio-file" accept=".wav" hidden>
+                        <button class="btn btn-upload" onclick="document.getElementById('audio-file').click()">
+                            Choose WAV File
+                        </button>
+                    </div>
+
+                    <div id="stt-output" class="output-area"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with ❤️ using Python, Flask & AI</p>
+            <p class="footer-subtext">VoiceMate © 2024 - Transform Text, Speech & Images</p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p class="loading-text">Processing...</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="{{ url_for('static', filename='speech_recognition.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
